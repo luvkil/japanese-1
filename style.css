@@ -19,7 +19,6 @@ body{
     font-family:arial;
     text-align:center;
     color: var(--design_color);
-    padding-top:7%;
     line-height: 1.5;
 
 }
@@ -39,12 +38,16 @@ h3{
 
 h4{
     margin-bottom: 5px;
+    color: whitesmoke;
+    font-size: larger;
+    font-weight: bold;
+    font-stretch: extra-expanded;
 }
 
 .i-can{
     display:block;
-    width:60%;
-    height:70%%;
+    width:90%;
+    height:90%;
     margin:auto;
     padding:3%;
     text-align:center;
@@ -79,13 +82,17 @@ button{
     
 }
 
-.list{
+.choicelist{
     list-style: none;
-    display: inline-flex;
+    padding: 5px;
+    margin-left: 20px;
+
+
 }
 
-
-
+li{
+    text-align: left;
+}
 
 
 

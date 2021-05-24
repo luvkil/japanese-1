@@ -2,15 +2,19 @@
 how do i change the setinterval to miniutes and seconds instead of just seconds??? )*/
 
 
-//grab start button
-var relay_to_button = document.querySelector(".start");
+//grab start button 
+var startButton = document.querySelector(".start");
 
 //create click event that controls time function and question function
-relay_to_button.addEventListener("click", function (){
+startButton.addEventListener("click", function (){
  setTime();
- showQuestion();
-
+ main();
+ //if or else statement making button disappear
+  if(startButton === "onclick"){
+    startButton.style.diplay = "none"
+  }else{startButton.style.display = "visible"}
 });
+
 
 
 //create  setTime function by first grabbing the countTime element and setting a variable
@@ -32,73 +36,129 @@ var interval = setInterval(function(){
 
 }
 
-/*(my object that used to store the question is a mess. should I put the proterties in  a bracket or not???)*/
 
 // defining the question data set
 var questionSet = [
   {
     question: "How do you declare a variable in JavaScript?",
-    choices: ["var", "var", "path", "request"],
-    answer: ["var","path","let","gel"],
+    choices: ["var", "const", "path", "request"],
+    answer: "var",
   },
 
 
   {
     question: "what is the attribute used in the script element the links javaSript to html?",
     choices: ["src", "link", "href", "url"],
-    answer: ["src","meta","div","http"],
-  },
-
-{
-    question: "How is the logical comparison not, written in javaSript ?"
-    choices: ["||" "!" "&&" "="],
-    answer: ["!" "&&" "===" "*"]
+    answer: "src",
   },
 
 
 {
-    question: "how do we access the dom in javascript?"
+    question: "how do we access the dom in javascript?",
     choices: ["queryselect", "getElementById", "queryselectall", "getElementByTag",],
-    answer: ["all","none","createElememt","gel"],
+    answer: "all",
   },
 
 {
-    question: "what lanaguage is the engine of front web-development?",
+    question: "what lanaguage is the engine of front end web-development?",
     choices: ["javaSript", "python", "node.js", "ruby"],
-    answer: ["javaScript","python","ruby","gel"],
+    answer: "javaScript",
   },
 
 ];
 
-/*(what I am trying to do below is to create function that will add button to the empty li elemets
-in html. can my first .addeventlister fire another evenlistener that is reference inside of it??
-2. is the if or else statement the best option in this case?)*/
+//selecting html question container
+var quizQuestions = document.querySelector("#quiz-questions");
+
+//selecting html list 
+let  listOne = document.querySelector(".info-1")
+let  listTwo = document.querySelector(".info-2")
+let  listThree = document.querySelector(".info-3")
+let  listFour = document.querySelector(".info-4")
+
+function main(){
+  for(var i = 0; i < questionSet.length;i++){
+    quizQuestions.innerHTML = questionSet[i].
+    question;
+  
+
+  for(var index = 0; index < questionSet[i].choices.length;index++){
+      listOne.innerHTML = questionSet[index].choices[0]
+      listTwo.innerHTML = questionSet[index].choices[1]
+      listThree.innerHTML = questionSet[index].choices[2]
+      listFour.innerHTML = questionSet[index].choices[3]
+}
 
 
-//fetching the element that button wiil be appended
-var newUl = document.querySelector(".list");
-var ulList =  newUl.children;
+
+};
 
 
+
+
+
+
+
+
+
+
+/*//fetching the element that button wiil be appended
+var newUl = document.querySelector(".buttonlist");
+var buttonchoice;
 
 //this function is use to create dynamic buttons
 function showQuestion  (){
+for(var i = 0; i < questionSet.length;i++){
 
-    choice_1 = document.createElement("button");
-var multiChoice = choices_1.setAttribute(".info-2",questionSet[0].choices)
+  buttonchoice = document.createElement("button");
+  //<button></button>
+  buttonchoice.innerHTML = questionSet[i].question;
+  //<button>How do you declare a variable in JavaScript?</button>
+  buttonchoice.onclick = CheckAnswers();
+  //<button onclick="CheckAnswers()">How do you declare a variable in JavaScript?</button>
+  newUl.append(buttonchoice);
 
-    multiChoice.addEventListener('click', function() {
-    questionSet;
-    if(choice[0] === answer[1]){
-      document.setAttribute(".info-2","correct")
-    }
-    else{
-      document.setAttribute(".info-2","incorect");
-    }
-  });
-    ulList.appendchild(multiChoice);
+  for(var index = 0; index < questionSet[i].choices.length;index++){
+    buttonchoice = document.createElement("button");
+    //<button></button>
+    buttonchoice.innerHTML = questionSet[i].choices[index];
+    //<button>How do yo u declare a variable in JavaScript?</button>
+    buttonchoice.onclick = CheckAnswers();
+    //<button onclick="CheckAnswers()">How do you declare a variable in JavaScript?</button>
+    newUl.append(buttonchoice);
 
+
+  };
+
+   
 }
+
+
+
+
+};
+  
+
+
+function CheckAnswers() {
+    /*if(buttonchoice == questionSet[0].answer){
+      alert("Yayyyyy");
+    }else{
+      alert("Booooooo");
+    }*/
+};
+    
+
+
+
+
+
+
+
+
+
+
+
 
 /*function showQuestion() {
 console.log(questionSet);
