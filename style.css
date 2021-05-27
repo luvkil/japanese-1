@@ -64,6 +64,7 @@ h4{
 }
 
 
+
 .start{
     margin:20px 0;
     font-size: 1.5rem;
@@ -83,6 +84,7 @@ button{
 }
 
 .choicelist{
+    display: inline-block;
     list-style: none;
     padding: 5px;
     margin-left: 20px;
@@ -94,6 +96,9 @@ li{
     text-align: left;
 }
 
+#next-button{
+    text-align: right;
+}
 
 
 
