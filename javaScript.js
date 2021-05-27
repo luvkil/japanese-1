@@ -4,17 +4,19 @@ how do i change the setinterval to miniutes and seconds instead of just seconds?
 
 //grab start button 
 var startButton = document.querySelector(".start");
+//grab div id that hides button content
+var startContent = document.querySelector("#start-content");
+
+
 
 //create click event that controls time function and question function
 startButton.addEventListener("click", function (){
  setTime();
- main();
- //if or else statement making button disappear
-  if(startButton === "onclick"){
-    startButton.style.diplay = "none"
-  }else{startButton.style.display = "visible"}
+main();
+ startContent.style.display = "none";
+ 
+ 
 });
-
 
 
 //create  setTime function by first grabbing the countTime element and setting a variable
@@ -34,7 +36,7 @@ var interval = setInterval(function(){
 
 }, 1000);
 
-}
+};
 
 
 // defining the question data set
@@ -70,87 +72,40 @@ var questionSet = [
 //selecting html question container
 var quizQuestions = document.querySelector("#quiz-questions");
 
-//selecting html list 
-let  listOne = document.querySelector(".info-1")
-let  listTwo = document.querySelector(".info-2")
-let  listThree = document.querySelector(".info-3")
-let  listFour = document.querySelector(".info-4")
+//selecting list container
+var  listOne = document.querySelector(".info-1");
+var  listTwo = document.querySelector(".info-2");
+var  listThree = document.querySelector(".info-3");
+var  listFour = document.querySelector(".info-4");
+var  questionContent = document.querySelector("#question-content");
+var index = -1;
+//var nextButton = document.querySelector("#next-button");
 
+
+//function containing dy(namic qestions and choices
 function main(){
-  for(var i = 0; i < questionSet.length;i++){
-    quizQuestions.innerHTML = questionSet[i].
-    question;
-  
+  index++
 
-  for(var index = 0; index < questionSet[i].choices.length;index++){
-      listOne.innerHTML = questionSet[index].choices[0]
-      listTwo.innerHTML = questionSet[index].choices[1]
-      listThree.innerHTML = questionSet[index].choices[2]
-      listFour.innerHTML = questionSet[index].choices[3]
-}
-
-
-
-};
-
-
-
-
-
-
-
-
-
-
-/*//fetching the element that button wiil be appended
-var newUl = document.querySelector(".buttonlist");
-var buttonchoice;
-
-//this function is use to create dynamic buttons
-function showQuestion  (){
-for(var i = 0; i < questionSet.length;i++){
-
-  buttonchoice = document.createElement("button");
-  //<button></button>
-  buttonchoice.innerHTML = questionSet[i].question;
-  //<button>How do you declare a variable in JavaScript?</button>
-  buttonchoice.onclick = CheckAnswers();
-  //<button onclick="CheckAnswers()">How do you declare a variable in JavaScript?</button>
-  newUl.append(buttonchoice);
-
-  for(var index = 0; index < questionSet[i].choices.length;index++){
-    buttonchoice = document.createElement("button");
-    //<button></button>
-    buttonchoice.innerHTML = questionSet[i].choices[index];
-    //<button>How do yo u declare a variable in JavaScript?</button>
-    buttonchoice.onclick = CheckAnswers();
-    //<button onclick="CheckAnswers()">How do you declare a variable in JavaScript?</button>
-    newUl.append(buttonchoice);
-
-
-  };
-
+  quizQuestions.innerHTML = questionSet[index].question;
    
-}
+    listOne.innerHTML =   questionSet[index].choices[0]
+    listTwo.innerHTML =   questionSet[index].choices[1]
+    listThree.innerHTML = questionSet[index].choices[2]
+    listFour.innerHTML =  questionSet[index].choices[3]
 
-
-
-
+    questionContent.style.color = "gray";
 };
-  
 
 
-function CheckAnswers() {
-    /*if(buttonchoice == questionSet[0].answer){
-      alert("Yayyyyy");
-    }else{
-      alert("Booooooo");
-    }*/
-};
-    
+quizQuestions.addEventListener("click",function ques(){
+quizQuestions.innerHTML = questionSet[index].question;
+
+});
 
 
-
+  /*i(questionSet[index].question && questionSet[index].choices === questionSet[index].answer){
+    console.log("correct");
+  }*/
 
 
 
@@ -160,21 +115,11 @@ function CheckAnswers() {
 
 
 
-/*function showQuestion() {
-console.log(questionSet);
 
-   Code dynamically create a button for each Answer Choice
- var choice_1 = document.createElement("button");
-  choices_1.setAttribute(".info-2",questionSet[0].choices)
-  choice_1.setAttribute(".info-2", questionSet[0].choices[0])
-  choice_1.addEventListener('click', function() {
-    questionSet;
-    if(choice[0] === answer[1]){
-      document.setAttribute(".info-2")
-    }
-    else{
-      document.setAttribute("incoreect");
-    }
-  })
-}*/
+
+
+
+
+
+
 

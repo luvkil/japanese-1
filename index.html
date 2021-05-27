@@ -10,10 +10,11 @@
     
 <body>
         <div class="i-can">
-            <div class="content">
-                <div id="start-content">
-                        <!--countTime element is used for giving acccess to time Interval in js-->
+            <div class="content">  
+                <!--countTime element is used for giving acccess to time Interval in js-->
                     <h4 class="time"></h4>
+                <!--container containing button  and instruction content-->
+                <div id="start-content">
                     <h1>javaSript Quiz</h1>
                     <h3>Instructions Below</h3>
                     <p>
@@ -21,28 +22,29 @@
                         Three minutes is subtracted form any incorrect answer.  When all questions are answered or the timer reaches zero, the quiz is over. You will recieve score after the quiz. 
                     </p>
                     <button class="start">start</button>
-                    </div>
-                
-                    <!--div that hold the qestion set-->
-                <div id="quiz-questions">
-
                 </div>
+                <!--question-content div contains list of choices -->
+                <div id="question-content">
+                    <!--div that hold the qestion set-->
+                    <div id="quiz-questions"></div>
 
-                <!--li list that hold quiz choices-->
-                <ul class="choicelist" >
-                     <li class="info-1"></li>  
-                     <li class="info-2"></li> 
-                     <li class="info-3"></li> 
-                     <li class="info-4"></li> 
-                
-                <!--container for answerws-->
-                <div id="quiz-answers"></div>
-                <!--container containing correct or incorrect result-->
-                <di id="correct-incorrect"></div>
-                <!--button for next questions and chaices-->
-                <button id="next-button"></button>
-                    
-                     
+                    <!--li list that hold quiz choices-->
+                    <ul class="choicelist" >
+                        <li class="info-1"></li>  
+                        <li class="info-2"></li> 
+                        <li class="info-3"></li> 
+                        <li class="info-4"></li> 
+                    </ul>
+                    <!--container for answerws-->
+                    <div id="quiz-answers"></div>
+                    <!--container containing correct or incorrect result-->
+                    <di id="correct-incorrect"></div>
+                    <!--score container-->
+                    <div id="socre-container"></div>
+                    <!--button for next questions and chaices-->
+                   
+                </div>
+                <button id="next-button" onclick="myfunction" ></button>
             </div>
         </div>
 
