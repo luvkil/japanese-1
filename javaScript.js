@@ -13,6 +13,7 @@ var startContent = document.querySelector("#start-content");
 startButton.addEventListener("click", function (){
  setTime();
 main();
+
  startContent.style.display = "none";
  
  
@@ -77,8 +78,9 @@ var  listOne = document.querySelector(".info-1");
 var  listTwo = document.querySelector(".info-2");
 var  listThree = document.querySelector(".info-3");
 var  listFour = document.querySelector(".info-4");
-var  questionContent = document.querySelector("#question-content");
 var index = -1;
+var answers = document.querySelector("#correct-incorrect");
+
 //var nextButton = document.querySelector("#next-button");
 
 
@@ -88,19 +90,49 @@ function main(){
 
   quizQuestions.innerHTML = questionSet[index].question;
    
-    listOne.innerHTML =   questionSet[index].choices[0]
-    listTwo.innerHTML =   questionSet[index].choices[1]
-    listThree.innerHTML = questionSet[index].choices[2]
-    listFour.innerHTML =  questionSet[index].choices[3]
+    listOne.innerHTML =   questionSet[index].choices[0];
+    listTwo.innerHTML =   questionSet[index].choices[1];
+    listThree.innerHTML = questionSet[index].choices[2];
+    listFour.innerHTML =  questionSet[index].choices[3];
 
-    questionContent.style.color = "gray";
+    //questionContent.style.color = "gray";
+    listOne.addEventListener("click", questionFunction)
+    listTwo.addEventListener("click", questionFunction)
+    listThree.addEventListener("click", questionFunction)
+    listFour.addEventListener("click", questionFunction)
+
+
+    //questionFunction();
+}
+
+//click event and logic 
+function questionFunction(event){
+  // index++;
+  // quizQuestions.addEventListener("click", function(){
+  //   quizQuestions.innerHTML = questionSet[index].choices
+  // })
+console.log(event)
+console.log(event.target.innerHTML)
+  // if(event.target && questionSet[index].choices ===  questionSet.answer){
+  //     document.innerHTML.textContent ="true";
+  // }else{
+  //   document.innerHTML = "false";
+  // };
 };
 
-
-quizQuestions.addEventListener("click",function ques(){
-quizQuestions.innerHTML = questionSet[index].question;
-
+/*listOne.forEach(element => {
+element.addEventListener("click", function(){
+document.innerHTML = questionSet[index].choices;
 });
+});
+
+for(let i = 0; i < choices.length; i++){
+  const element = choices[i];
+}
+
+element.addEventListener("click",function(){
+document.innerHTML = questionSet[index].choices
+})
 
 
   /*i(questionSet[index].question && questionSet[index].choices === questionSet[index].answer){
