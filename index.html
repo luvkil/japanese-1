@@ -11,8 +11,6 @@
 <body>
         <div class="main-container">
             <div class="second-container">  
-                <!--countTime element is used for giving acccess to time Interval in js-->
-                    <h4 class="time"></h4>
                 <!--container containing button  and instruction content-->
                 <div id="start-content-hidden hidden">
                     <h1>javaSript Quiz</h1>
@@ -43,10 +41,12 @@
                     <di id="correct-incorrect"></div>
                 </div>    
                     <!--score and end result container. this container is hidden-->
-                <div id="final-score-hidden hidden">
+                <div id="result hidden">
                         <h2>Finish</h2>
 
-                        <span>Your score: <span id="final-score"></span></span>
+                        <span>Your score: <span id="score"></span></span>
+
+                        <span>time left: <span id="time"></span></span>
 
                     <!--using form to collect user information-->
                         <form action="#" target="_self" method="POST">
@@ -56,7 +56,7 @@
                         </form>
                 </div>
                     <!--li list container that gives high score. container is hiddeen -->
-                <div id="high-scores-container-hidden hidden">
+                <div id="high-scores-container hidden">
                         <h2>High Score List</h2>
                         <ul id="high-score-list">
                             <li id="first">  </li>
