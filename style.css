@@ -1,11 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100&family=Ubuntu:ital,wght@1,300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,100&display=swap');
 
-
+/*color variables*/
 :root{
     --background_colour:rgb(61, 56, 58);
     --design_color:rgb(51, 209, 48)
-
 }
 
 html{
@@ -22,7 +21,7 @@ body{
     line-height: 1.5;
 
 }
-
+/*header elements*/
 h1{
     font-size: 2rem;
     font-weight: bold;
@@ -44,38 +43,36 @@ h4{
     font-stretch: extra-expanded;
 }
 
-.i-can{
+/*main container*/
+.main-container{
     display:block;
-    width:90%;
-    height:90%;
+    width:80%;
+    height:100vh;
     margin:auto;
     padding:3%;
     text-align:center;
 
 }
 
-.content{
+/*sencond container*/
+.second-container{
     text-align: center;
     border: solid 1px;
+    border-radius: 5px;
     border-color: var(--design_color);
     padding: 10px;
-    height: 100%;
+    height: 80%;
     
 }
 
-
-
-.start{
+/*start button*/
+.start-button{
     margin:20px 0;
     font-size: 1.5rem;
     font-family: 'ubuntu';
     border-radius: 10px;
     font-weight: bold;
-
-
-
 }
-
 
 button{
     padding:10px 20px;
@@ -83,17 +80,27 @@ button{
     
 }
 
+/*selector for ul that conains choice list*/
 .choicelist{
-    display: inline-block;
+    display: inline-flex;
+    justify-content: center;
     list-style: none;
     padding: 5px;
     margin-left: 20px;
-
-
 }
 
 li{
-    text-align: left;
+    text-align: center;
+    margin-left: 5%;
+}
+
+/*selector for containing high score*/
+#high-score-list{
+    display: inline-flex;
+    justify-content: center;
+    list-style:none;
+    padding: 5px;
+    margin-left: 20px;
 }
 
 #next-button{
