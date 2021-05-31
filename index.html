@@ -9,42 +9,67 @@
 
     
 <body>
-        <div class="i-can">
-            <div class="content">  
+        <div class="main-container">
+            <div class="second-container">  
                 <!--countTime element is used for giving acccess to time Interval in js-->
                     <h4 class="time"></h4>
                 <!--container containing button  and instruction content-->
-                <div id="start-content">
+                <div id="start-content-hidden hidden">
                     <h1>javaSript Quiz</h1>
                     <h3>Instructions Below</h3>
                     <p>
                         There are five questions,click on button to answer each. You are timed.<br>
                         Three minutes is subtracted form any incorrect answer.  When all questions are answered or the timer reaches zero, the quiz is over. You will recieve score after the quiz. 
                     </p>
-                    <button class="start">start</button>
+                    <button class="start-button">start</button>
                 </div>
-                <!--question-content div contains list of choices -->
-                <div id="question-content">
+
+
+                <!--question and choices container-->
+                <div id="question-content hidden">
                     <!--div that hold the qestion set-->
                     <div id="quiz-questions"></div>
 
-                    <!--li list that hold quiz choices-->
+                    <!--open li list that hold quiz choices-->
+
                     <ul class="choicelist" >
-                        <li class="info-1"></li>  
-                        <li class="info-2"></li> 
-                        <li class="info-3"></li> 
-                        <li class="info-4"></li> 
+                        <li><button class="btn"> </button> </li>  
+                        <li><button class="btn"> </button> </li> 
+                        <li><button class="btn"> </button> </li> 
+                        <li><button class="btn"> </button> </li>
                     </ul>
-                    <!--container for answerws-->
-                    <div id="quiz-answers"></div>
-                    <!--container containing correct or incorrect result-->
+
+                    <!--container containing whether the answer is true or false-->
                     <di id="correct-incorrect"></div>
-                    <!--score container-->
-                    <div id="socre-container"></div>
-                    <!--button for next questions and chaices-->
-                   
+                </div>    
+                    <!--score and end result container. this container is hidden-->
+                <div id="final-score-hidden hidden">
+                        <h2>Finish</h2>
+
+                        <span>Your score: <span id="final-score"></span></span>
+
+                    <!--using form to collect user information-->
+                        <form action="#" target="_self" method="POST">
+                            <label for="Initial">Your Initial:</label>
+                            <input type="text" id="initial">
+                            <input type="button" value="submit" id="submit-btn">
+                        </form>
                 </div>
-                <button id="next-button" onclick="myfunction" ></button>
+                    <!--li list container that gives high score. container is hiddeen -->
+                <div id="high-scores-container-hidden hidden">
+                        <h2>High Score List</h2>
+                        <ul id="high-score-list">
+                            <li id="first">  </li>
+                            <li id="second"> </li>
+                            <li id="third">  </li>
+                        </ul> 
+                        
+                    <!--button for clearing high scores-->
+                        <button id="clear-button" >clear</button>
+                    <!--button to back to the beginning-->
+                        <button id="go-back- button">goback</button>
+                </div>
+                    
             </div>
         </div>
 
