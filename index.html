@@ -25,6 +25,12 @@
 
                 <!--question and choices container-->
                 <div id="question-content hidden">
+
+                    <!--current time and curent-->
+                        <span>Your score: <span id="score"></span></span>
+
+                        <span>time left: <span id="time"></span></span>
+
                     <!--div that hold the qestion set-->
                     <div id="quiz-questions"></div>
 
@@ -43,12 +49,8 @@
                     <!--score and end result container. this container is hidden-->
                 <div id="result hidden">
                         <h2>Finish</h2>
-
-                        <span>Your score: <span id="score"></span></span>
-
-                        <span>time left: <span id="time"></span></span>
-
-                    <!--using form to collect user information-->
+                            <span>your score was: <span id="final-score"></span></span>
+                        <!--using form to collect user information-->
                         <form action="#" target="_self" method="POST">
                             <label for="Initial">Your Initial:</label>
                             <input type="text" id="initial">
