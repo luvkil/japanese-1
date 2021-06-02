@@ -15,7 +15,7 @@ var choiceList = document.querySelector('.choicelist');
 
 var correctOrInncorrect = document.querySelector('#correct-incorrect');
 var Result = document.querySelector('#result');
-var formInitial = document.querySelector('initial');
+var formInitial = document.querySelector('#initial');
 var highScores = document.querySelector('#high-scores-container');
 var submitButton = document.querySelector('#submit-btn');
 var highScoreList = document.querySelector('#high-score-list');
@@ -70,11 +70,15 @@ function questionSet (){
   ]
 };
 
-function main(){
+function main(event){
 score = 0;
 runningScore.textContent = score;
 finalScore.textContent = score;
- 
+ nextQuestionsAndChoices();
+ questionSet();
+change(questionContent);
+
+
 
 //setting time interval
  var runningTime = 60;
@@ -84,8 +88,9 @@ finalScore.textContent = score;
 
     quizTime.textContent = runningTime;
 
- if(Time === 0){
+ if(Time <= 0){
     alert("quiz is over");
+    change(Result);
     clearInterval(time);
     }
 
@@ -93,7 +98,14 @@ finalScore.textContent = score;
 }
 
 
-function nextQuestionsAndChoices(){
+function nextQuestionsAndChoices(){  
+    // end quiz if there are no questions left
+    if (questionsAndChoices.length <= 0) {
+        clearInterval(time);
+        change(Result);
+        return;
+    }
+
 //randomise question and choices list
 randomQuestion = Math.floor( questionsAndChoices.length * Math.random());
 
@@ -104,49 +116,45 @@ for( let i = 0; i < questionsAndChoices[randomQuestion].choices.length;i++ ){
     };
 
 //random quiz questions 
-    //quizQuestion.textContent = questionsAndChoices[randomQuestion].qestions;
-    for(let j = 0; j < questionsAndChoices[randomQuestion].questions.length;j++){
-        quizQuestion.textContent = questionsAndChoices[randomQuestion].questions;
-    }
+    quizQuestion.textContent = questionsAndChoices[randomQuestion].qestions[j];
+   // for(let j = 0; j < questionsAndChoices[randomQuestion].questions.length;j++){
+        //quizQuestion.textContent = questionsAndChoices[randomQuestion].questions[j];
+    //}
 
 };
 
 //function creating hidden section
-function change(element){
-    startContent.display.style = "none";
-    questionContent.display.style = "none";
-    Result.display.style = "none";
-    highScores.display.style = "none";
-    element.display.style = "display-block";
+function change(){
+    startContent.style.display = "none";
+    questionContent.style.display = "none";
+    Result.style.diplay = "none";
+    highScores.style.display = "none";
+    element.style.display = "inline-block";
 }
-
 //how do I create local storage??
 
-function intial(){
+function initial(){
     var currentScore = {};
     var highScore = [];
     
     initials = formInitial;
     currentScore.initials = initials;
-    highScore.score = score;
+    currentscore = score;
 
     if(localStorage.getitem("highScore")){
         highScore = JSON.parse(localStorage.getItem("highscore"))
-    }
+    };
 
     highScore.push(currentScore);
-    console.log('------------------------------------');
-    console.log('highscore object =', highScore );
-    console.log('------------------------------------');
 
     //set high score in local storage
     localStorage.setitem("highScore", JSON.stringyfy(highScore));
 
     //change to highscore
     change(highScores);
-    //update high score
+    //update to the high high score here
 
-}
+};
 
 function gradeQestions(event) {
     var countdown =1;
@@ -169,31 +177,32 @@ function gradeQestions(event) {
             correctOrInncorrect.textContent = "";
             clearInterval(outcomeTImer)
         }
+        countdown--;
     }, 1000);
 
     //remove question from list
     questionsAndChoices.splice(randomQuestion, 1);
 
-}
+};
 
 /****************starting calls************* */
 //update high scores
 
 startButton.addEventListener("click", function(){
-questionSet();
-intial();
-nextQuestionsAndChoices();
-change(Result);
-change(questionContent);
-change(startContent);
-startContent.display.style = "none";
+    main();
+    startContent.style.display = "none";
+
 });
 
 choiceList.addEventListener("click", function(){
     correctOrInncorrect.textContent = "";
     clearInterval(outcomeTImer);
-    gradeQestions();
+    gradeQestions(event);
     nextQuestionsAndChoices();
-
-
 })
+
+submitButton.addEventListener("click", initial());
+formInitial.addEventListener("submit", function (event) {
+    event.preventDefault();
+    initial;
+});
