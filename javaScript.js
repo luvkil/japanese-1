@@ -1,209 +1,333 @@
 
 
-//dom vaiables
-var startContent = document.querySelector('#start-content-hidden');
-var startButton = document.querySelector('.start-button');
-var quizTime = document.querySelector('#time'); 
-var runningScore = document.querySelector('#score');
-var finalScore = document.querySelector('#final-score');
+var timeEl = document.querySelector("#time")
+var viewHighscoresEl = document.querySelector("#viewHighscores")
 
+var startMenuEl = document.querySelector(".startMenu");
+var startMenuBtn = document.querySelector("#startMenuBtn");
 
+var questionCardEl = document.querySelector(".questionCard");
+var questionEl = document.querySelector("#question");
+var optionParentEl = document.querySelector("#optionParent");
+var resultEl = document.querySelector("#result");
+var scoreEl = document.querySelector("#score");
 
-var questionContent = document.querySelector('#question-content');
-var quizQuestion = document.querySelector('#quiz-questions');
-var choiceList = document.querySelector('.choicelist');
+var quizEndMenuEl = document.querySelector(".quizEndMenu");
+var submitInitialsBtn = document.querySelector("#submitInitialsBtn");
+var finalScoreEl = document.querySelector("#finalScore");
+var initialsEl = document.querySelector("#initials");
 
-var correctOrInncorrect = document.querySelector('#correct-incorrect');
-var Result = document.querySelector('#result');
-var formInitial = document.querySelector('#initial');
-var highScores = document.querySelector('#high-scores-container');
-var submitButton = document.querySelector('#submit-btn');
-var highScoreList = document.querySelector('#high-score-list');
-var first = document.querySelector('#first'); 
-var second= document.querySelector('#second'); 
-var third = document.querySelector('#third');
+var highScoreMenuEl = document.querySelector(".highScoreMenu");
+var goBackBtn = document.querySelector("#goBackBtn");
+var highscoreListEl = document.querySelector("#highscoreList");
+var firstPlace = document.querySelector("#firstPlace");
+var secondPlace = document.querySelector("#secondPlace")
+var thirdPlace = document.querySelector("#thirdPlace")
 
-//scope variables
-var questionsAndChoices;
-var randomQuestion;
-var Time;
+// Initialize Variables
 var score;
 var initials;
-var outcomeTImer;
+var secondsRemaining;
+var timer;
+var questions;
+var randIndex;
+var outcomeTimer;
 
+function updateHighscores() {
+    // Set local storage highscores to temp object and "parse"
+    var highscores = JSON.parse(localStorage.getItem("highscores"));
+    console.log(`highscores local storage retrieved as: ${highscores}`);
 
+    // only perform if highscore exists
+    if (highscores !== null) {
+        console.log("we have highscore local storage!")
+        // find top 3 scores by looping
+        var topThree = [];
 
-//question set function
-function questionSet (){
-     questionsAndChoices = [
+        // loop through highscores 3 times
+        for (let i = 0; i < 3; i++) {
+            // initialize max as -1
+            var max = -1;
 
-        {
-            questions: "what is the language that powers front-end web   development?",
-            choices: ["javascript","pyhon","abode","english"],
-            answer: "javasript",
-    },
-        {
-            questions: "what is a function use for ",
-            choices: ["creating procedures and calculation","if or else statement", "making music",""],
-            answer:"creating procedures and calculation",
+            // loop for each item
+            for (let j = 0; j < highscores.length; j++) {
+                // if item score is > max then set as max
+                if (highscores[j].score > max) {
+                    max = highscores[j].score;
+                    var maxIndex = j;
+                }
+                
+            }
+            if (max !== -1) {
+                
+                topThree[i] = {
+                    initials: highscores[maxIndex].initials,
+                    score: max
+                };
 
-    },
+            } else {
+                topThree[i] = {
+                    initials: "N/A",
+                    score: "N/A"
+                };
+            }
+            
+            // delete item from highscores object 
+            highscores.splice(maxIndex, 1);
 
-        {
-            questions:"what is the opperand for not in javasript",
-            choices:["//","!","==","booleon"],
-            answer:"!",
+        }
 
-    },
+        console.log("topThree = ", topThree);
 
-        {
-            questions:"what is the purpose of the console.log function",
-            choices:["its a part of html", "its use for debbugging", "useful to programmers for testing their code", "no purpose"],
-            answer:"useful to programmers for testing their code",
-    },
-        {
-            questions:"what is the purpose of an array in javasript",
-            choices:["making list of values and ojects","its the same as a variable","use to make test","no purpose"],
-            answer:"making list of choices and objests",
-    },
-        
-  ]
-};
+        // update "top 3 highscores" elements        
+        firstPlace.innerHTML = `1. ${topThree[0].initials} - ${topThree[0].score}`;
+        secondPlace.innerHTML = `2. ${topThree[1].initials} - ${topThree[1].score}`;
+        thirdPlace.innerHTML = `3. ${topThree[2].initials} - ${topThree[2].score}`;
 
-function main(event){
-score = 0;
-runningScore.textContent = score;
-finalScore.textContent = score;
-questionSet();
- nextQuestionsAndChoices();
- 
-change(questionContent);
+        // if array index item is null, then set to "N/A"
 
-
-
-//setting time interval
- var runningTime = 60;
- Time = setInterval(() => {
-    runningTime--;
-
-
-    quizTime.textContent = runningTime;
-
- if(Time <= 0){
-    alert("quiz is over");
-    change(Result);
-    clearInterval(time);
     }
-
-  }, 1000);
 }
 
 
-function nextQuestionsAndChoices(){  
+function initializeQuestions() {
+    questions = [
+        {
+            question: "How do you create a comment in Javascript?",
+            answers: ["//", "##", "~", "-"],
+            correctAnswer: "//"
+        },
+        {
+            question: "How do you initialize a variable?",
+            answers: ["var x = 1;", "set x = 1;", "dim x = 1", "by the power of the gods, x shall be 1"],
+            correctAnswer: "var x = 1;"
+        },
+        {
+            question: "What year was Javascript invented?",
+            answers: ["1995", "2000", "2005", "2010"],
+            correctAnswer: "1995"
+        },
+        {
+            question: "What is not considered an arithmetic operator?",
+            answers: ["+", "%", "++", "="],
+            correctAnswer: "="
+        },
+        {
+            question: "How do you call an object property?",
+            answers: ["object/property", "object*property", "object.property", "object>property"],
+            correctAnswer: "object.property"
+        },
+        {
+            question: "What events can be used in JavaScript?",
+            answers: ["double click", "mouse over", "mouse down", "All of the Above"],
+            correctAnswer: "All of the Above"
+        },
+        {
+            question: "How are strings defined?",
+            answers: ["x = \"string\"", "x = \'string\'","x = \`string\`", "All of the Above"],
+            correctAnswer: "All of the Above"
+        },
+        {
+            question: "How are varibles printed with console.log?",
+            answers: ["console.log(\"${variable}\")", "console.log(variable)", "console.log(*variable*)", "console.log(\"variable\")"],
+            correctAnswer: "console.log(variable)"
+        },
+        {
+            question: "How are varibles printed in console.log alongside text using tick marks?",
+            answers: ["console.log(\`result = $variable\`)", "console.log(\`result = <variable>\`)", "console.log(\`result = \"variable\"\`)", "console.log(\`result = ${variable}\`)"],
+            correctAnswer: "console.log(\`result = ${variable}\`)"
+        },
+        {
+            question: "How do you reference the first index of a string?",
+            answers: ["string(0)", "string(1)", "string[0]", "string[1]"],
+            correctAnswer: "string[0]"
+        },
+        {
+            question: "How would you get the value of Pi in JavaScript?",
+            answers: ["Value.PI", "PI", "Math.PI", "none of the above"],
+            correctAnswer: "Math.PI"
+        },
+        {
+            question: "How would you generate a random number (0 to 1) in JavaScript?",
+            answers: ["Value.Random", "Random()", "Math.random()", "set.random(0, 1)"],
+            correctAnswer: "Math.random()"
+        },
+        {
+            question: "How would you round a decimal down to the nearest integer?",
+            answers: ["Math.roundDown()", "Math.round(\"down\")", "Math.floor()", "set.number.toNearestInt(\"roundDown\")"],
+            correctAnswer: "Math.floor()"
+        },
+        {
+            question: "What is a boolean?",
+            answers: ["An error type associated with string methods", "A javascript data type that accepts \"true\" and \"false\"", "A cute animal", "A type of icecream"],
+            correctAnswer: "A javascript data type that accepts \"true\" and \"false\""
+        },
+        {
+            question: "What comparison operator checks if the values are equal to each other?",
+            answers: ["x > y", "x $ y", "x == y", "x @ y"],
+            correctAnswer: "x == y"
+        },
+        {
+            question: "What comparison operator checks if the values are NOT equal to each other?",
+            answers: ["x !$ y", "x ~= y", "x !=== y", "not(x == y)"],
+            correctAnswer: "x !=== y"
+        },
+        {
+            question: "Which piece of code is used with the \"switch\" statement to indicate the default block of code to run if none of the cases are true?",
+            answers: ["default: ", "standard: ", "else: ", "this: "],
+            correctAnswer: "default: "
+        },
+        {
+            question: "Which of the following can be an object method?",
+            answers: ["object.method", "object(method)", "method(object)", "object.method()"],
+            correctAnswer: "object.method()"
+        },
+        {
+            question: "How would you write a function?",
+            answers: ["function(){console.log(\"hello!\")}", "function(a, b){return a+b}", "()=>{console.log(\"hello!\")}", "All of the Above"],
+            correctAnswer: "All of the Above"
+        },
+        {
+            question: "Which of the following is an integer?",
+            answers: ["0.2", "zero", "1", "1/32"],
+            correctAnswer: "1"
+        }
+    ];
+}
+
+
+function startQuiz() {
+    score = 0;
+    scoreEl.textContent = score;
+    finalScoreEl.textContent = score;
+
+    secondsRemaining = 45;
+    initializeQuestions();
+
+    changeMenu(questionCardEl);
+    nextQuestion();
+
+    timeEl.textContent = secondsRemaining;
+    timer = setInterval(function () {
+        secondsRemaining--;
+        timeEl.textContent = secondsRemaining;
+        if (secondsRemaining <= 0) {
+            changeMenu(quizEndMenuEl);
+            clearInterval(timer);
+        }
+    }, 1000);
+
+}
+
+function nextQuestion() {
     // end quiz if there are no questions left
-    if (questionsAndChoices.length <= 0) {
-        clearInterval(time);
-        change(Result);
+    if (questions.length <= 0) {
+        clearInterval(timer);
+        changeMenu(quizEndMenuEl);
         return;
     }
 
-//randomise question and choices list
-randomQuestion = Math.floor( questionsAndChoices.length * Math.random());
+    randIndex = Math.floor(questions.length * Math.random())
+    console.log(`randIndex = ${randIndex}`);
 
-
-//accessing choicelist with randomize index list
-for( let i = 0; i < questionsAndChoices[randomQuestion].choices.length;i++ ){
-        choiceList.children[i].textContent = questionsAndChoices[randomQuestion].choices[i];
-    };
-
-//random quiz questions 
-    quizQuestion.textContent = questionsAndChoices[randomQuestion].qestions[j];
-   // for(let j = 0; j < questionsAndChoices[randomQuestion].questions.length;j++){
-        //quizQuestion.textContent = questionsAndChoices[randomQuestion].questions[j];
-    //}
-
-};
-
-//function creating hidden section
-function change(){
-    startContent.style.display = "none";
-    questionContent.style.display = "none";
-    Result.style.diplay = "none";
-    highScores.style.display = "none";
-    element.style.display = "inline-block";
-}
-//how do I create local storage??
-
-function initial(){
-    var currentScore = {};
-    var highScore = [];
-    
-    initials = formInitial;
-    currentScore.initials = initials;
-    currentscore = score;
-
-    if(localStorage.getitem("highScore")){
-        highScore = JSON.parse(localStorage.getItem("highscore"))
-    };
-
-    highScore.push(currentScore);
-
-    //set high score in local storage
-    localStorage.setitem("highScore", JSON.stringyfy(highScore));
-
-    //change to highscore
-    change(highScores);
-    //update to the high high score here
-
-};
-
-function gradeQestions(event) {
-    var countdown =1;
-//this code will run when function is triggered
-    var outcome = (questionsAndChoices[randomQuestion].anwers == event.target.textContent);
-// logic condition for checking answers and reseting time
-    if(outcome){
-        correctOrInncorrect.textContent = "true";
-        score++;
-        runningScore.textContent = score;
-        finalScore.textContent = score;
-    }else{
-        correctOrInncorrect.textContent= "false!";
-        runningTime -=2;
+    //select random question
+    questionEl.textContent = questions[randIndex].question;
+    for (let i = 0; i < questions[randIndex].answers.length; i++) {
+        optionParentEl.children[i].textContent = questions[randIndex].answers[i];
     }
 
+}
 
-    outcomeTImer = setInterval(() => {
-        if(countdown <= 0){
-            correctOrInncorrect.textContent = "";
-            clearInterval(outcomeTImer)
+function submitInitials() {
+    var currentHighscore = {};
+    var highscores = [];
+
+    // Add score & initials to local storage
+    initials = initialsEl.value;
+    currentHighscore.initials = initials;
+    currentHighscore.score = score;
+
+    if (localStorage.getItem("highscores")) {
+        console.log("Highscores local storage exists...")
+        highscores = JSON.parse(localStorage.getItem("highscores"));
+    }
+
+    highscores.push(currentHighscore);
+    console.log(`highscores object =`, highscores);
+
+    // Set highscores in local storage
+    localStorage.setItem("highscores", JSON.stringify(highscores));
+
+    // Change to highscore menu
+    changeMenu(highScoreMenuEl);
+    updateHighscores();
+}
+
+function changeMenu(element) {
+    startMenuEl.style.display = "None";
+    questionCardEl.style.display = "None";
+    quizEndMenuEl.style.display = "None";
+    highScoreMenuEl.style.display = "None";
+    element.style.display = "inline-block"
+}
+
+function gradeQuestion(event) {
+    var countdown = 1;
+
+    //Check if user selected correct option
+    outcome = (questions[randIndex].correctAnswer == event.target.textContent);
+    console.log(`Player answer: ${event.target.textContent}, Correct Answer: ${questions[randIndex].correctAnswer}`);
+
+
+    //Call resultDisplay function
+    if (outcome) {
+        resultEl.textContent = "Correct!";
+        score++;
+        scoreEl.textContent = score;
+        finalScoreEl.textContent = score;
+    } else {
+        resultEl.textContent = "Wrong!";
+        secondsRemaining -= 5;
+    }
+
+    //Controls "Correct! or Wrong! text timing"
+    outcomeTimer = setInterval(function () {
+
+        if (countdown <= 0) {
+            resultEl.textContent = "";
+            clearInterval(outcomeTimer);
         }
         countdown--;
     }, 1000);
 
-    //remove question from list
-    questionsAndChoices.splice(randomQuestion, 1);
+    //remove question from the list
+    questions.splice(randIndex, 1);
+}
 
-};
+// ------ INIT CALLS ------
+updateHighscores();
 
-/****************starting calls************* */
-//update high scores
+// ------ EVENT HANDLERS ------
+startMenuBtn.addEventListener("click", startQuiz)
 
-startButton.addEventListener("click", function(){
-    main();
-    startContent.style.display = "none";
+optionParentEl.addEventListener("click", function () {
+    resultEl.textContent = "";
+    clearInterval(outcomeTimer);
+    gradeQuestion(event);
+    nextQuestion();
 
 });
 
-choiceList.addEventListener("click", function(){
-    correctOrInncorrect.textContent = "";
-    clearInterval(outcomeTImer);
-    gradeQestions(event);
-    nextQuestionsAndChoices();
+submitInitialsBtn.addEventListener("click", submitInitials);
+initialsEl.addEventListener("submit", function (event) {
+    event.preventDefault();
+    submitInitials;
 })
 
-submitButton.addEventListener("click", initial());
-formInitial.addEventListener("submit", function (event) {
-    event.preventDefault();
-    initial;
-});
+viewHighscoresEl.addEventListener("click", function () {
+    changeMenu(highScoreMenuEl);
+})
+
+goBackBtn.addEventListener("click", function () {
+    changeMenu(startMenuEl);
+})
