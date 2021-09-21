@@ -1,83 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>javaScript code quiz</title>
-    <link rel="stylesheet" href="style.css">
 
-    
+    <link rel="stylesheet" href="styles/reset.css">
+    <link rel="stylesheet" href="styles/style.css">
+
+    <title>Javascript Coding Quiz</title>
+</head>
+
 <body>
-            <span id="viewHighScores">view high scores</span>
-        <div class="main-container">
-            <div class="second-container">  
-                <!--container containing button  and instruction content-->
-                <div id="start-content-hidden">
-                    <h1>javaSript Quiz</h1>
-                    <h3>Instructions Below</h3>
-                    <p>
-                        There are five questions,click on button to answer each. You are timed.<br>
-                        Three minutes is subtracted form any incorrect answer.  When all questions are answered or the timer reaches zero, the quiz is over. You will recieve score after the quiz. 
-                    </p>
-                    <button class="start-button">start</button>
+    <span id="viewHighscores">Veiw Highscores</span>
+
+    <div class="flexContainer">
+        <div class="container">
+
+            <!-- START MENU -->
+            <div class="startMenu">
+                <h1>Welcome to the Javascript Coding Quiz!</h1>
+                <p>You will be asked a series of multiple choice questions about Javascript
+                    (how fun and exhilirating!). You will be timed, so try to hurry and answer all of the questions!
+                    Be careful however, as your time remaining will decrease each time you answer a question
+                    incorrectly.
+                </p>
+                <button id="startMenuBtn" class="btn">Start</button>
+            </div>
+
+            <!-- QUESTION CARD -->
+            <div class="questionCard hidden">
+                <span>Score: <span id="score"></span></span>
+                <span>Time left: <span id="time">0</span> seconds</span>
+                <h2 id="question">Question goes here</h2>
+                <div id="optionParent">
+                    <button class="btn">option 1</button>
+                    <button class="btn">option 2</button>
+                    <button class="btn">option 3</button>
+                    <button class="btn">option 4</button>
                 </div>
+                <span id="result"></span>
+            </div>
 
+            <!-- QUIZ END MENU -->
+            <div class="quizEndMenu hidden">
+                <!-- All done! -->
+                <h1>All done!</h1>
+                
+                <span>Your score was: <span id="finalScore"></span>.</span>
+                <!-- initial caption for box -->
+                <form>
+                    <!-- initial enter box -->
+                    <p>Enter your initials: </p>
+                    <input id="initials" type="text">
 
-                <!--question and choices container-->
-                <div id="question-content">
+                </form>
+                <!-- submit button -->
+                <button id="submitInitialsBtn" class="btn">Submit</button>
+            </div>
 
-                    <!--current time and curent-->
-                        <span>Your score: <span id="score"></span></span>
-
-                        <span>time left: <span id="time"></span></span>
-
-                    <!--div that hold the qestion set-->
-                    <div id="quiz-questions"></div>
-
-                    <!--open li list that hold quiz choices-->
-
-                    <ul class="choicelist" >
-                        <li><button class="btn"> </button> </li>  
-                        <li><button class="btn"> </button> </li> 
-                        <li><button class="btn"> </button> </li> 
-                        <li><button class="btn"> </button> </li>
-                    </ul>
-
-                    <!--container containing whether the answer is true or false-->
-                    <di id="correct-incorrect"></div>
-                </div>    
-                    <!--score and end result container. this container is hidden-->
-                <div id="result">
-                        <h2>Finish</h2>
-                            <span>your score was: <span id="final-score"></span></span>
-                        <!--using form to collect user information-->
-                        <form action="#" target="_self" method="POST">
-                            <label for="Initial">Your Initial:</label>
-                            <input type="text" id="initial">
-                            <input type="button" value="submit" id="submit-btn">
-                        </form>
-                </div>
-                    <!--li list container that gives high score. container is hiddeen -->
-                <div id="high-scores-container hidden">
-                        <h2>High Score List</h2>
-                        <ul id="high-score-list">
-                            <li id="first">  </li>
-                            <li id="second"> </li>
-                            <li id="third">  </li>
-                        </ul> 
-                        
-                    <!--button for clearing high scores-->
-                        <button id="clear-button" >clear</button>
-                    <!--button to back to the beginning-->
-                        <button id="go-back- button">goback</button>
-                </div>
-                    
+            <!-- HIGHSCORE MENU -->
+            <div class="highScoreMenu hidden">
+                <!-- highschores title -->
+                <h1>Highscores</h1>
+                <!-- ul of higschores -->
+                <ul id="highscoreList">
+                    <li id="firstPlace">1. N/A</li>
+                    <li id="secondPlace">2. N/A</li>
+                    <li id="thirdPlace">3. N/A</li>
+                </ul>
+                <!-- "go back" button -->
+                <button id="goBackBtn" class="btn">Go Back</button>
+                <!-- "clear highscores" button -->
+                <button class="btn">Clear</button>
             </div>
         </div>
+    </div>
 
-
-
-        <script src="javaScript.js"></script>
+    <script src="scripts/script.js"></script>
 </body>
+
 </html>

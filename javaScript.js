@@ -74,8 +74,9 @@ function main(event){
 score = 0;
 runningScore.textContent = score;
 finalScore.textContent = score;
+questionSet();
  nextQuestionsAndChoices();
- questionSet();
+ 
 change(questionContent);
 
 
